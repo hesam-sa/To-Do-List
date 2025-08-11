@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>برنامه مدیریت وظایف</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <p>سلام، {{ user.username }} | </p>
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">خروج</button>
+    </form>
+
+    {% else %}
+    <p><a href="{% url 'login' %}">ورود</a></p>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+
+</html>

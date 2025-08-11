@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>وظایف من</h2>
+<ul>
+  {% for task in tasks %}
+    <li>
+      <strong>{{ task.title }}</strong> 
+      {% if task.completed %}✔{% endif %}
+      - {{ task.due_date }}
+    </li>
+  {% empty %}
+    <li>وظیفه‌ای وجود ندارد.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
