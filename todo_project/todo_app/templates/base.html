@@ -4,23 +4,33 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>برنامه مدیریت وظایف</title>
     <link rel="stylesheet" href="{% static 'todo_app/style.css' %}">
 </head>
 
 <body>
-    {% if user.is_authenticated %}
-    <p>سلام، {{ user.username }} | </p>
-    <form action="{% url 'logout' %}" method="post" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">خروج</button>
-    </form>
+    <nav style="background:#eee; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <a href="{% url 'task_list' %}">صفحه اصلی</a> |
+            <a href="{% url 'add_task' %}">ایجاد وظیفه جدید</a>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                سلام، {{ user.username }} | 
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">خروج</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">ورود</a>
+            {% endif %}
+        </div>
+    </nav>
 
-    {% else %}
-    <p><a href="{% url 'login' %}">ورود</a></p>
-    {% endif %}
-
-    {% block content %}{% endblock %}
+    <main style="padding:20px;">
+        {% block content %}{% endblock %}
+    </main>
 </body>
 
 </html>

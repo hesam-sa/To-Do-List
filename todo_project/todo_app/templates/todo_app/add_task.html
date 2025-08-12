@@ -1,10 +1,20 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>افزودن وظیفه جدید</h2>
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">ثبت</button>
-</form>
+<div class="task-container">
+    <h2 class="task-title">اضافه کردن وظیفه جدید</h2>
+
+    <form method="post" class="task-form">
+        {% csrf_token %}
+        <label for="title" class="task-label">عنوان وظیفه:</label>
+        <input type="text" id="title" name="title" class="task-input" required>
+
+        <label for="description" class="task-label">توضیحات:</label>
+        <textarea id="description" name="description" class="task-textarea" rows="4"></textarea>
+
+        <button type="submit" class="task-button">افزودن</button>
+    </form>
+
+    <p><a href="{% url 'task_list' %}" class="task-link">بازگشت به لیست وظایف</a></p>
+</div>
 {% endblock %}

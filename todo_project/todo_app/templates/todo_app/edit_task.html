@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>ویرایش وظیفه</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ذخیره تغییرات</button>
-</form>
+<div class="task-list">
+    <h2>Edit Task</h2>
+
+    <form method="POST" class="task-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-add">Save Changes</button>
+            <a href="{% url 'task_list' %}" class="btn btn-delete">Cancel</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
