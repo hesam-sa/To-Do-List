@@ -8,8 +8,24 @@ from django.shortcuts import get_object_or_404
 
 @login_required
 def task_list(request):
-    tasks = Task.objects.filter(user=request.user).order_by('-created_at')
-    return render(request,'todo_app/task_list.html',{'tasks':tasks})
+
+    search_query = request.GET.get('search','')
+    filter_status = request.GET.get('status','')
+
+    tasks = Task.objects.filter(user=request.user)
+
+    if search_query :
+        tasks = tasks.filter(title__icontains=search_query)
+
+    if filter_status == 'completed' :
+        tasks = tasks.filter(completed=True)
+    elif filter_status == 'pending' :
+        tasks = tasks.filter(completed=False)    
+
+    tasks = tasks.order_by('-created_at')
+
+    return render(request,'todo_app/task_list.html',{'tasks':tasks , 'search_query':search_query , 'filter_status':filter_status})
+
 
 @login_required
 def add_task(request):

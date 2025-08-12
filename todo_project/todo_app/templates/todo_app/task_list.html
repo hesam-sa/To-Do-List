@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+<form method="get">
+  <input type="text" name="search" placeholder="جستجو..." value="{{ search_query }}">
+
+  <select name="status">
+    <option value="">همه</option>
+    <option value="completed" {% if filter_status == 'completed' %}selected{% endif %}>انجام شده</option>
+    <option value="pending" {% if filter_status == 'pending' %}selected{% endif %}>در حال انجام</option>
+  </select>
+  <button type="submit">اعمال</button>
+</form>
 <p><a href="{% url 'add_task' %}">+افزودن وظیفه</a></p>
 <h2>وظایف من</h2>
 <ul>
@@ -9,7 +19,7 @@
     <strong>{{ task.title }}</strong>
     {% if task.completed %}✔{% endif %}
     - {{ task.due_date }}
-    - {{ task.created_date }}
+    - {{ task.created_at }}
     -<a href="{% url 'edit_task' task.id %}">ویرایش</a> |
     <a href="{% url 'delete_task' task.id %}">حذف</a>
   </li>
