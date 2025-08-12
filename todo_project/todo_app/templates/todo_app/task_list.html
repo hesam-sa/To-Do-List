@@ -1,54 +1,57 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<form method="get">
-  <input type="text" name="search" placeholder="جستجو..." value="{{ search_query }}">
+<div class="task-list">
 
-  <select name="status">
-    <option value="">همه</option>
-    <option value="completed" {% if filter_status == 'completed' %}selected{% endif %}>انجام شده</option>
-    <option value="pending" {% if filter_status == "pending" %}selected{% endif %}>در حال انجام</option>
-  </select>
-  <button type="submit">اعمال</button>
-</form>
-<p><a href="{% url 'add_task' %}">+افزودن وظیفه</a></p>
-<h2>وظایف من</h2>
-<ul>
+  <form method="GET" action="{% url 'task_list' %}" class="search-form">
+    <input type="text" name="search" placeholder="Search tasks..." value="{{ search_query }}">
+    <button type="submit">Search</button>
+  </form>
+
+  <h2>Task List</h2>
+
   {% for task in tasks %}
-  <li>
-    <strong>{{ task.title }}</strong>
-    {% if task.completed %}✔{% endif %}
-    - {{ task.due_date }}
-    - {{ task.created_at }}
-    -<a href="{% url 'edit_task' task.id %}">ویرایش</a> |
-    <a href="{% url 'delete_task' task.id %}">حذف</a>
-  </li>
+  <div class="task-item {% if task.completed %}completed{% endif %}">
+    <span>{{ task.title }}</span>
+    <div>
+      <a href="{% url 'edit_task' task.id %}" class="btn btn-add">Edit</a>
+      <a href="{% url 'delete_task' task.id %}" class="btn btn-delete">Delete</a>
+    </div>
+  </div>
   {% empty %}
-  <li>وظیفه‌ای وجود ندارد.</li>
+  <p>No tasks available.</p>
   {% endfor %}
-</ul>
-<h3>Tasks Statistics</h3>
-<div style="max-width: 250px; margin: auto;">
+
+  <br>
+  <a href="{% url 'add_task' %}" class="btn btn-add">+ Add New Task</a>
+</div>
+
+<div class="chart-container">
+  <h3>Task Stats</h3>
   <canvas id="tasksChart"></canvas>
 </div>
 
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const ctx = document.getElementById('tasksChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Completed', 'Pending'],
-      datasets: [{
-        label: 'Tasks',
-        data: [{{ completed_tasks }}, {{ pending_tasks }}],
-    backgroundColor: ['#4CAF50', '#FF9800']
-  }]
-        },
-    options: {
-    responsive: true,
-    maintainAspectRatio: false
-  }
+    const completedTasks = parseInt("{{ completed_tasks|default:0 }}");
+    const pendingTasks = parseInt("{{ pending_tasks|default:0 }}");
+
+    const ctx = document.getElementById('tasksChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'Pending'],
+            datasets: [{
+                label: 'Tasks',
+                data: [completedTasks, pendingTasks],
+                backgroundColor: ['#4CAF50', '#FF9800']
+            }]
+        }
     });
 </script>
+
+
 {% endblock %}
