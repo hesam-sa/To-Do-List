@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
+<p><a href="{% url 'add_task' %}">+افزودن وظیفه</a></p>
 <h2>وظایف من</h2>
 <ul>
   {% for task in tasks %}
-    <li>
-      <strong>{{ task.title }}</strong> 
-      {% if task.completed %}✔{% endif %}
-      - {{ task.due_date }}
-    </li>
+  <li>
+    <strong>{{ task.title }}</strong>
+    {% if task.completed %}✔{% endif %}
+    - {{ task.due_date }}
+    - {{ task.created_date }}
+    -<a href="{% url 'edit_task' task.id %}">ویرایش</a> |
+    <a href="{% url 'delete_task' task.id %}">حذف</a>
+  </li>
   {% empty %}
-    <li>وظیفه‌ای وجود ندارد.</li>
+  <li>وظیفه‌ای وجود ندارد.</li>
   {% endfor %}
 </ul>
 {% endblock %}

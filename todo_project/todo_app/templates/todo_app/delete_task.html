@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>حذف وظیفه</h2>
+<p>آیا مطمئن هستید که می‌خواهید "{{ task.title }}" را حذف کنید؟</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">بله، حذف کن</button>
+    <a href="{% url 'task_list' %}">انصراف</a>
+</form>
+{% endblock %}
