@@ -7,7 +7,7 @@
   <select name="status">
     <option value="">همه</option>
     <option value="completed" {% if filter_status == 'completed' %}selected{% endif %}>انجام شده</option>
-    <option value="pending" {% if filter_status == 'pending' %}selected{% endif %}>در حال انجام</option>
+    <option value="pending" {% if filter_status == "pending" %}selected{% endif %}>در حال انجام</option>
   </select>
   <button type="submit">اعمال</button>
 </form>
@@ -27,4 +27,28 @@
   <li>وظیفه‌ای وجود ندارد.</li>
   {% endfor %}
 </ul>
+<h3>Tasks Statistics</h3>
+<div style="max-width: 250px; margin: auto;">
+  <canvas id="tasksChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('tasksChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Completed', 'Pending'],
+      datasets: [{
+        label: 'Tasks',
+        data: [{{ completed_tasks }}, {{ pending_tasks }}],
+    backgroundColor: ['#4CAF50', '#FF9800']
+  }]
+        },
+    options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+    });
+</script>
 {% endblock %}

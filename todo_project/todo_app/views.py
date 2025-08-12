@@ -24,7 +24,16 @@ def task_list(request):
 
     tasks = tasks.order_by('-created_at')
 
-    return render(request,'todo_app/task_list.html',{'tasks':tasks , 'search_query':search_query , 'filter_status':filter_status})
+    #Statistics
+    total_tasks = Task.objects.filter(user=request.user).count()
+    completed_tasks = Task.objects.filter(user=request.user,completed=True).count() 
+    pending_tasks = total_tasks - completed_tasks
+
+
+    return render(request,'todo_app/task_list.html',{'tasks':tasks , 'search_query':search_query , 'filter_status':filter_status,
+        'total_tasks': total_tasks,
+        'completed_tasks': completed_tasks,
+        'pending_tasks': pending_tasks})
 
 
 @login_required
