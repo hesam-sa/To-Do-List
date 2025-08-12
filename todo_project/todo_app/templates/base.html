@@ -1,34 +1,30 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برنامه مدیریت وظایف</title>
+    <title>To Do List Program</title>
     <link rel="stylesheet" href="{% static 'todo_app/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 
 <body>
-    <nav style="background:#eee; padding:10px; display:flex; justify-content:space-between; align-items:center;">
-        <div>
-            <a href="{% url 'task_list' %}">صفحه اصلی</a> |
-            <a href="{% url 'add_task' %}">ایجاد وظیفه جدید</a>
-        </div>
-        <div>
+    <header class="header">
+        <div class="container header-content">
             {% if user.is_authenticated %}
-                سلام، {{ user.username }} | 
+                <p>Hi، {{ user.username }} | </p>
                 <form action="{% url 'logout' %}" method="post" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit">خروج</button>
+                    <button type="submit" class="btn-logout">logout</button>
                 </form>
             {% else %}
-                <a href="{% url 'login' %}">ورود</a>
+                <p><a href="{% url 'login' %}" class="btn-login">login</a></p>
             {% endif %}
         </div>
-    </nav>
+    </header>
 
-    <main style="padding:20px;">
+    <main class="main-content container">
         {% block content %}{% endblock %}
     </main>
 </body>

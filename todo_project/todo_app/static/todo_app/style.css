@@ -4,7 +4,6 @@ body {
     background-color: #f4f6f8;
     margin: 0;
     padding: 0;
-    direction: rtl; /* جهت راست به چپ برای فارسی */
 }
 
 /* هدر */
@@ -126,6 +125,7 @@ header {
     font-size: 16px;
     font-family: inherit;
     resize: vertical;
+    box-sizing: border-box;
 }
 
 .task-form input[type="text"]:focus,
@@ -134,9 +134,21 @@ header {
     outline: none;
     border-color: #0066cc;
     box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+    box-sizing: border-box;
 }
 
-/* دکمه‌ها - نسخه یکپارچه */
+.task-form input[type="datetime"]{
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -159,6 +171,14 @@ header {
 }
 
 .btn-add:hover {
+    background-color: #45a049;
+}
+
+.btn-reg {
+    background-color: #4CAF50;
+}
+
+.btn-reg:hover {
     background-color: #45a049;
 }
 
@@ -195,13 +215,13 @@ header {
 
 /* فرم کانتینر */
 .form-container {
+    box-sizing: border-box;
     max-width: 400px;
     margin: 40px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    direction: rtl;
     font-family: 'Tahoma', sans-serif;
 }
 
@@ -213,6 +233,8 @@ header {
 
 .form-group {
     margin-bottom: 15px;
+    box-sizing: border-box;
+    width: 100% ;
 }
 
 .form-group label {
@@ -220,6 +242,7 @@ header {
     margin-bottom: 6px;
     font-weight: bold;
     color: #444;
+    box-sizing: border-box;
 }
 
 .form-group input {
@@ -228,6 +251,7 @@ header {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 15px;
+    box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -238,4 +262,64 @@ header {
 /* hover برای دکمه‌ها */
 .btn:hover {
     opacity: 0.9;
+}
+
+/* کانتینر برای مرکز کردن و حاشیه مناسب */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* هدر */
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: 'Tahoma', sans-serif;
+}
+
+.header-content {
+    display: block;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    height: auto;
+}
+
+/* دکمه خروج */
+.btn-logout {
+    background-color: #f44336;
+    border: none;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f;
+}
+
+/* لینک ورود */
+.btn-login {
+    background-color: #2196F3;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #0b7dda;
+}
+
+/* محتوای اصلی */
+.main-content {
+    padding: 30px 0;
+    font-family: 'Tahoma', sans-serif;
+    color: #333;
 }
