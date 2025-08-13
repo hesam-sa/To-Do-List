@@ -13,6 +13,10 @@
   {% for task in tasks %}
   <div class="task-item {% if task.completed %}completed{% endif %}">
     <span>{{ task.title }}</span>
+    <span>{{ task.due_date }}</span>
+    {% if task.compeled == True %}
+    <span>{{ task.completed }}</span>
+    {% endif %}
     <div>
       <a href="{% url 'edit_task' task.id %}" class="btn btn-add">Edit</a>
       <a href="{% url 'delete_task' task.id %}" class="btn btn-delete">Delete</a>
