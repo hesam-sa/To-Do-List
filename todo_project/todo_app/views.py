@@ -33,7 +33,7 @@ def task_list(request):
     pending_tasks = total_tasks - completed_tasks
 
 
-    return render(request,'todo_app/index.html',{'tasks':tasks , 'search_query':search_query , 'filter_status':filter_status,
+    return render(request,'todo_app/task_list.html',{'tasks':tasks , 'search_query':search_query , 'filter_status':filter_status,
         'total_tasks': total_tasks,
         'completed_tasks': completed_tasks,
         'pending_tasks': pending_tasks})
